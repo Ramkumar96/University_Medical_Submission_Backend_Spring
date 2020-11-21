@@ -29,7 +29,7 @@ public class User {
 
 	private String address;
 
-	@NotBlank
+
 	@Size(max = 20)
 	private String username;
 
@@ -38,7 +38,7 @@ public class User {
 	@Email
 	private String email;
 
-	@NotBlank
+
 	@Size(max = 120)
 	private String password;
 
