@@ -64,19 +64,26 @@ public class AuthController {
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(new JwtResponse(jwt, 
-												 userDetails.getId(), 
+												 userDetails.getId(),
+												 userDetails.getUserid(),
+												 userDetails.getFirstname(),
+												 userDetails.getLastname(),
+												 userDetails.getMobile(),
+												 userDetails.getAddress(),
 												 userDetails.getUsername(), 
-												 userDetails.getEmail(), 
+												 userDetails.getEmail(),
+												 userDetails.getCourseId(),
+												 userDetails.getDepartmentId(),
 												 roles));
 	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
-		}
+//		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+//			return ResponseEntity
+//					.badRequest()
+//					.body(new MessageResponse("Error: Username is already taken!"));
+//		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
@@ -85,44 +92,74 @@ public class AuthController {
 		}
 
 		// Create new user's account
-		User user = new User(signUpRequest.getUserid(),
+		User user = new User(
+				signUpRequest.getUserid(),
 				signUpRequest.getFirstname(),
 				signUpRequest.getLastname(),
 				signUpRequest.getMobile(),
 				signUpRequest.getAddress(),
 				signUpRequest.getUsername(),
 				signUpRequest.getEmail(),
-				encoder.encode(signUpRequest.getPassword()));
+				encoder.encode(signUpRequest.getPassword()),
+				signUpRequest.getCourseId(),
+				signUpRequest.getDepartmentId());
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 
-		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			roles.add(userRole);
-		} else {
+//		if (strRoles == null) {
+//			Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+//					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//			roles.add(userRole);
+//		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
+
+				case "student":
+					Role studentRole = roleRepository.findByName(ERole.ROLE_STUDENT)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(studentRole);
+
+					break;
+
+				case "staff":
+					Role staffRole = roleRepository.findByName(ERole.ROLE_STAFF)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(staffRole);
+
+					break;
+
+				case "lecturer":
+					Role lecturerRole = roleRepository.findByName(ERole.ROLE_LECTURER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(lecturerRole);
+
+					break;
+
+				case "hod":
+					Role hodRole = roleRepository.findByName(ERole.ROLE_HOD)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(hodRole);
+
+					break;
+
+				case "dean":
+					Role deanRole = roleRepository.findByName(ERole.ROLE_DEAN)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(deanRole);
+
+						break;
+
+
 				case "admin":
 					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
 
 					break;
-				case "mod":
-					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(modRole);
-
-					break;
-				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(userRole);
 				}
 			});
-		}
+
 
 		user.setRoles(roles);
 		userRepository.save(user);
@@ -130,26 +167,16 @@ public class AuthController {
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 
-//	@PutMapping("/register")
-//	ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
-//
-////		Optional<User> existingUser = userRepository.findByEmail(registerRequest.getEmail());
-//		// Create new user's account
-//
-//		User user = new User(signupRequest.getUserid(),
-//				signupRequest.getFirstname(),
-//				signupRequest.getLastname(),
-//				signupRequest.getMobile(),
-//				signupRequest.getAddress(),
-//				signupRequest.getUsername(),
-//				signupRequest.getEmail(),
-//				encoder.encode(signupRequest.getPassword()));
-//
-//		if (userRepository.existsByEmail(signupRequest.getEmail())) {
-//
-//			User result = userRepository.save(user);
-//
-//		}
-//		return ResponseEntity.ok(new MessageResponse("User Updated successfully!"));
-//	}
+	@PutMapping("/register")
+	ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest){
+
+		User existingUser = userRepository.findByEmail(registerRequest.getEmail());
+
+		existingUser.setUsername(registerRequest.getUsername());
+		existingUser.setPassword(encoder.encode(registerRequest.getPassword()));
+
+		User result = userRepository.save(existingUser);
+
+		return ResponseEntity.ok(new MessageResponse("User Updated successfully!"));
+	}
 }

@@ -17,6 +17,16 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Long id;
 
+	private String userid;
+
+	private String firstname;
+
+	private String lastname;
+
+	private String mobile;
+
+	private String address;
+
 	private String username;
 
 	private String email;
@@ -24,14 +34,37 @@ public class UserDetailsImpl implements UserDetails {
 	@JsonIgnore
 	private String password;
 
+	private String courseId;
+
+	private String departmentId;
+
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+//	public UserDetailsImpl(Long id, String username, String email, String password,
+//			Collection<? extends GrantedAuthority> authorities) {
+//		this.id = id;
+//		this.username = username;
+//		this.email = email;
+//		this.password = password;
+//		this.authorities = authorities;
+//	}
+
+
+	public UserDetailsImpl(Long id, String userid, String firstname, String lastname,
+						   String mobile, String address, String username, String email,
+						   String password, String courseId, String departmentId,
+						   Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
+		this.userid = userid;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.mobile = mobile;
+		this.address = address;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.courseId = courseId;
+		this.departmentId = departmentId;
 		this.authorities = authorities;
 	}
 
@@ -41,10 +74,17 @@ public class UserDetailsImpl implements UserDetails {
 				.collect(Collectors.toList());
 
 		return new UserDetailsImpl(
-				user.getId(), 
+				user.getId(),
+				user.getUserid(),
+				user.getFirstname(),
+				user.getLastname(),
+				user.getMobile(),
+				user.getAddress(),
 				user.getUsername(), 
 				user.getEmail(),
-				user.getPassword(), 
+				user.getPassword(),
+				user.getCourseId(),
+				user.getDepartmentId(),
 				authorities);
 	}
 
@@ -55,6 +95,26 @@ public class UserDetailsImpl implements UserDetails {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public String getAddress() {
+		return address;
 	}
 
 	public String getEmail() {
@@ -69,6 +129,14 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getUsername() {
 		return username;
+	}
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public String getDepartmentId() {
+		return departmentId;
 	}
 
 	@Override

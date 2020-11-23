@@ -16,7 +16,7 @@ public class SignupRequest {
 
     private String address;
 
-    @NotBlank
+//    @NotBlank
     @Size(min = 3, max = 20)
     private String username;
  
@@ -28,6 +28,10 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+
+    private String courseId;
+
+    private String departmentId;
     
     private Set<String> role;
     
@@ -75,7 +79,15 @@ public class SignupRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public String getCourseId() { return courseId; }
+
+    public void setCourseId(String courseId) { this.courseId = courseId; }
+
+    public String getDepartmentId() { return departmentId; }
+
+    public void setDepartmentId(String departmentId) { this.departmentId = departmentId; }
+
     public Set<String> getRole() {
       return this.role;
     }

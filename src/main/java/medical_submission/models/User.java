@@ -29,7 +29,6 @@ public class User {
 
 	private String address;
 
-
 	@Size(max = 20)
 	private String username;
 
@@ -38,15 +37,19 @@ public class User {
 	@Email
 	private String email;
 
-
 	@Size(max = 120)
 	private String password;
+
+	private String courseId;
+
+	private String departmentId;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
 
 	public User() {
 	}
@@ -58,8 +61,8 @@ public class User {
 //	}
 
 
-	public User(String userid, String firstname, String lastname,
-				String mobile, String address, String username, String email, String password) {
+	public User(String userid, String firstname, String lastname, String mobile, String address,
+				String username,String email,String password, String courseId, String departmentId) {
 		this.userid = userid;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -68,6 +71,8 @@ public class User {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.courseId = courseId;
+		this.departmentId = departmentId;
 	}
 
 	public Long getId() {
@@ -121,6 +126,14 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getCourseId() { return courseId; }
+
+	public void setCourseId(String courseId) { this.courseId = courseId; }
+
+	public String getDepartmentId() { return departmentId; }
+
+	public void setDepartmentId(String departmentId) { this.departmentId = departmentId; }
 
 	public Set<Role> getRoles() {
 		return roles;
