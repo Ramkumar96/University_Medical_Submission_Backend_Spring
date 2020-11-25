@@ -77,7 +77,7 @@ public class AuthController {
 												 roles));
 	}
 
-	@PostMapping("/signup")
+	@PostMapping("/adduser")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 //		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 //			return ResponseEntity
@@ -164,7 +164,7 @@ public class AuthController {
 		user.setRoles(roles);
 		userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.ok(new MessageResponse("User Added successfully!"));
 	}
 
 	@PutMapping("/register")
@@ -177,6 +177,6 @@ public class AuthController {
 
 		User result = userRepository.save(existingUser);
 
-		return ResponseEntity.ok(new MessageResponse("User Updated successfully!"));
+		return ResponseEntity.ok(new MessageResponse("User Registered successfully!"));
 	}
 }

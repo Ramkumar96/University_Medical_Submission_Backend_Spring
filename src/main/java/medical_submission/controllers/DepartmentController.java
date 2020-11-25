@@ -1,7 +1,8 @@
 package medical_submission.controllers;
 
 import medical_submission.models.Course;
-import medical_submission.repository.CourseRepository;
+import medical_submission.models.Department;
+import medical_submission.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,30 +13,19 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/course")
-public class CourseController {
+@RequestMapping("/department")
+public class DepartmentController {
 
     @Autowired
-    CourseRepository courseRepository;
+    DepartmentRepository departmentRepository;
 
-
-    public CourseController(CourseRepository courseRepository) {
+    public DepartmentController(DepartmentRepository departmentRepository) {
         super();
-        this.courseRepository = courseRepository;
+        this.departmentRepository = departmentRepository;
     }
 
-    @GetMapping("/allcourses")
-    public List<Course> getAllCourses(){
-        return courseRepository.findAll();
+    @GetMapping("/alldepartments")
+    public List<Department> getAllDepartments(){
+        return departmentRepository.findAll();
     }
-
-//    public Optional<Course> findById(String id) {
-//
-//        return courseRepository.findById("PST11201");
-//    }
-
 }
-
-
-
-
