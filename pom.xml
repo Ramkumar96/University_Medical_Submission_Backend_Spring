@@ -9,10 +9,10 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
-	<artifactId>spring-boot-security-jwt</artifactId>
+	<groupId>com.medical_submission</groupId>
+	<artifactId>University-Medical-Submission-App</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-jwt</name>
+	<name>University-Medical-Submission-App</name>
 	<description>Medical SUbmission Project</description>
 
 	<properties>
