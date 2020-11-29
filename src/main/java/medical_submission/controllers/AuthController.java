@@ -170,6 +170,12 @@ public class AuthController {
 	@PutMapping("/register")
 	ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest){
 
+		if (userRepository.existsByUsername(registerRequest.getUsername())) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Username is already taken!"));
+		}
+
 		User existingUser = userRepository.findByEmail(registerRequest.getEmail());
 
 		existingUser.setUsername(registerRequest.getUsername());
