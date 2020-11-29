@@ -1,8 +1,10 @@
 package medical_submission.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import medical_submission.repository.FileDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class FileController {
 
     @Autowired
     private FileStorageService storageService;
+
+    @Autowired
+    private FileDBRepository fileDBRepository;
 
     @PostMapping("/upload")
     public ResponseEntity<MessageResponse> uploadFile(
@@ -80,4 +85,22 @@ public class FileController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
                 .body(fileDB.getData());
     }
+
+
+    @DeleteMapping("/files/{id}")
+    ResponseEntity<?> deleteFile(@PathVariable String id){
+        fileDBRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/files/{id}")
+    ResponseEntity<?> updateFileDetails( @RequestParam("accepted") Boolean accepted , @PathVariable String id) {
+        Optional<FileDB> existingFile = fileDBRepository.findById(id);
+        existingFile.ifPresent((FileDB file) -> {
+            file.setAccepted(accepted);
+            fileDBRepository.save(file);
+        });
+        return ResponseEntity.ok().build();
+    }
+
 }

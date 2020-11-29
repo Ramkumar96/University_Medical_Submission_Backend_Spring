@@ -1,5 +1,6 @@
 package medical_submission.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.stream.Stream;
 
@@ -34,4 +35,9 @@ public class FileStorageService {
     public Stream<FileDB> getAllFiles() {
         return fileDBRepository.findAll().stream();
     }
+
+//    public FileDB getAllExamsFiles(String category) { return fileDBRepository.findByCategory(category).get();}
+
+//    public FileDB deleteFile(String id){ return  fileDBRepository.deleteById(id);}
+
 }
