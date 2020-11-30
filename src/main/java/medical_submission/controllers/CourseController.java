@@ -18,7 +18,6 @@ public class CourseController {
     @Autowired
     CourseRepository courseRepository;
 
-
     public CourseController(CourseRepository courseRepository) {
         super();
         this.courseRepository = courseRepository;
@@ -28,12 +27,6 @@ public class CourseController {
     public List<Course> getAllCourses(){
         return courseRepository.findAll();
     }
-
-//    public Optional<Course> findById(String id) {
-//
-//        return courseRepository.findById("PST11201");
-//    }
-
 }
 
 

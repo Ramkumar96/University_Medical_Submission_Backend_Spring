@@ -16,7 +16,6 @@ public class SignupRequest {
 
     private String address;
 
-//    @NotBlank
     @Size(min = 3, max = 20)
     private String username;
  

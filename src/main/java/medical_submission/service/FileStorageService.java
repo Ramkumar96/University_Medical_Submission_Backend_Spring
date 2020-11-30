@@ -36,8 +36,4 @@ public class FileStorageService {
         return fileDBRepository.findAll().stream();
     }
 
-//    public FileDB getAllExamsFiles(String category) { return fileDBRepository.findByCategory(category).get();}
-
-//    public FileDB deleteFile(String id){ return  fileDBRepository.deleteById(id);}
-
 }

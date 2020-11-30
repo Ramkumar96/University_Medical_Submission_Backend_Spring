@@ -1,6 +1,5 @@
 package medical_submission.payload.response;
 
-
 public class ResponseFile {
     private String name;
     private String url;
@@ -13,15 +12,6 @@ public class ResponseFile {
     private String courseId;
     private String departmentId;
     private Boolean accepted;
-
-//  public ResponseFile(String name, String url, String type, long size, String username, String details) {
-//    this.name = name;
-//    this.url = url;
-//    this.type = type;
-//    this.size = size;
-//    this.username = username;
-//    this.details = details;
-//  }
 
     public ResponseFile(String name, String url, String type, long size, String id ,
                         String userid, String date, String category, String courseId,

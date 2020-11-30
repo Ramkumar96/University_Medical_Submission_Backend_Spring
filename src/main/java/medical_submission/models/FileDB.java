@@ -38,17 +38,12 @@ public class FileDB {
     public FileDB() {
     }
 
-//  public FileDB(String name, String type, byte[] data, String username, String details) {
-//    this.name = name;
-//    this.type = type;
-//    this.data = data;
-//    this.username = username;
-//    this.details = details;
-//  }
 
     public FileDB(String name, String type, byte[] data, String userid, String date,
                   String category, String courseId, String departmentId, Boolean accepted) {
-        this.id=id;        this.name = name;
+
+//        this.id=id;
+        this.name = name;
         this.type = type;
         this.data = data;
         this.userid = userid;

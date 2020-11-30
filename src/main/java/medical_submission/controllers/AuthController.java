@@ -79,12 +79,6 @@ public class AuthController {
 
 	@PostMapping("/adduser")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-//		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-//			return ResponseEntity
-//					.badRequest()
-//					.body(new MessageResponse("Error: Username is already taken!"));
-//		}
-
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
@@ -107,11 +101,6 @@ public class AuthController {
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 
-//		if (strRoles == null) {
-//			Role userRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-//					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//			roles.add(userRole);
-//		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
 
@@ -149,7 +138,6 @@ public class AuthController {
 					roles.add(deanRole);
 
 						break;
-
 
 				case "admin":
 					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)

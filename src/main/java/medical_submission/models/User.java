@@ -54,13 +54,6 @@ public class User {
 	public User() {
 	}
 
-//	public User(String username, String email, String password) {
-//		this.username = username;
-//		this.email = email;
-//		this.password = password;
-//	}
-
-
 	public User(String userid, String firstname, String lastname, String mobile, String address,
 				String username,String email,String password, String courseId, String departmentId) {
 		this.userid = userid;

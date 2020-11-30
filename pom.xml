@@ -13,7 +13,7 @@
 	<artifactId>University-Medical-Submission-App</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>University-Medical-Submission-App</name>
-	<description>Medical SUbmission Project</description>
+	<description>Medical Submission Project</description>
 
 	<properties>
 		<java.version>1.8</java.version>

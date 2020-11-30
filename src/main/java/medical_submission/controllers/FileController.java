@@ -77,6 +77,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
+//    Download File
     @GetMapping("/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = storageService.getFile(id);
@@ -86,13 +87,14 @@ public class FileController {
                 .body(fileDB.getData());
     }
 
-
+//    Delete by id
     @DeleteMapping("/files/{id}")
     ResponseEntity<?> deleteFile(@PathVariable String id){
         fileDBRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
+//    Update Partially
     @PutMapping("/files/{id}")
     ResponseEntity<?> updateFileDetails( @RequestParam("accepted") Boolean accepted , @PathVariable String id) {
         Optional<FileDB> existingFile = fileDBRepository.findById(id);
@@ -102,5 +104,4 @@ public class FileController {
         });
         return ResponseEntity.ok().build();
     }
-
 }
