@@ -20,10 +20,12 @@ public class FileStorageService {
     private FileDBRepository fileDBRepository;
 
     public FileDB store(MultipartFile file , String userid, String date, String category,
-                        String courseId, String departmentId, Boolean accepted ) throws IOException {
+                        String courseId, String departmentId,  Boolean acceptedByStaff,
+                        Boolean deletedByStaff, Boolean acceptedByLecturer,Boolean deletedByLecturer ) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         FileDB FileDB = new FileDB(fileName, file.getContentType(), file.getBytes() , userid ,
-                date , category ,courseId ,departmentId , accepted);
+                date , category ,courseId ,departmentId , acceptedByStaff,
+                deletedByStaff,acceptedByLecturer,deletedByLecturer);
 
         return fileDBRepository.save(FileDB);
     }

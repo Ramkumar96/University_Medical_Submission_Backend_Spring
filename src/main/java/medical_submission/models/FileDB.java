@@ -33,16 +33,21 @@ public class FileDB {
 
     private String departmentId;
 
-    private Boolean accepted;
+    private Boolean acceptedByStaff;
+
+    private Boolean deletedByStaff;
+
+    private Boolean acceptedByLecturer;
+
+    private Boolean deletedByLecturer;
 
     public FileDB() {
     }
 
-
-    public FileDB(String name, String type, byte[] data, String userid, String date,
-                  String category, String courseId, String departmentId, Boolean accepted) {
-
-//        this.id=id;
+    public FileDB(String name, String type, byte[] data, String userid,
+                  String date, String category, String courseId, String departmentId,
+                  Boolean acceptedByStaff, Boolean deletedByStaff, Boolean acceptedByLecturer,
+                  Boolean deletedByLecturer) {
         this.name = name;
         this.type = type;
         this.data = data;
@@ -51,8 +56,26 @@ public class FileDB {
         this.category = category;
         this.courseId = courseId;
         this.departmentId = departmentId;
-        this.accepted = accepted;
+        this.acceptedByStaff = acceptedByStaff;
+        this.deletedByStaff = deletedByStaff;
+        this.acceptedByLecturer = acceptedByLecturer;
+        this.deletedByLecturer = deletedByLecturer;
     }
+
+    //    public FileDB(String name, String type, byte[] data, String userid, String date,
+//                  String category, String courseId, String departmentId, Boolean accepted) {
+//
+////        this.id=id;
+//        this.name = name;
+//        this.type = type;
+//        this.data = data;
+//        this.userid = userid;
+//        this.date = date;
+//        this.category = category;
+//        this.courseId = courseId;
+//        this.departmentId = departmentId;
+//        this.accepted = accepted;
+//    }
 
     public String getId() {
         return id;
@@ -90,7 +113,19 @@ public class FileDB {
 
     public void setDepartmentId(String departmentId) { this.departmentId = departmentId; }
 
-    public Boolean getAccepted() { return accepted; }
+    public Boolean getAcceptedByStaff() { return acceptedByStaff; }
 
-    public void setAccepted(Boolean accepted) { this.accepted = accepted; }
+    public void setAcceptedByStaff(Boolean acceptedByStaff) { this.acceptedByStaff = acceptedByStaff; }
+
+    public Boolean getDeletedByStaff() { return deletedByStaff; }
+
+    public void setDeletedByStaff(Boolean deletedByStaff) { this.deletedByStaff = deletedByStaff; }
+
+    public Boolean getAcceptedByLecturer() { return acceptedByLecturer; }
+
+    public void setAcceptedByLecturer(Boolean acceptedByLecturer) {this.acceptedByLecturer = acceptedByLecturer; }
+
+    public Boolean getDeletedByLecturer() { return deletedByLecturer; }
+
+    public void setDeletedByLecturer(Boolean deletedByLecturer) { this.deletedByLecturer = deletedByLecturer; }
 }

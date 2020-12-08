@@ -38,10 +38,14 @@ public class FileController {
             @RequestParam("category") String category,
             @RequestParam("courseId") String courseId,
             @RequestParam("departmentId") String departmentId,
-            @RequestParam("accepted") Boolean accepted) {
+            @RequestParam("acceptedByStaff") Boolean acceptedByStaff,
+            @RequestParam("deletedByStaff") Boolean deletedByStaff,
+            @RequestParam("acceptedByLecturer") Boolean acceptedByLecturer,
+            @RequestParam("deletedByLecturer") Boolean deletedByLecturer){
         String message = "";
         try {
-            storageService.store(file ,userid ,date ,category, courseId,departmentId, accepted  );
+            storageService.store(file ,userid ,date ,category, courseId,departmentId, acceptedByStaff,
+                    deletedByStaff,acceptedByLecturer,deletedByLecturer );
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
@@ -71,7 +75,10 @@ public class FileController {
                     dbFile.getCategory(),
                     dbFile.getCourseId(),
                     dbFile.getDepartmentId(),
-                    dbFile.getAccepted());
+                    dbFile.getAcceptedByStaff(),
+                    dbFile.getDeletedByStaff(),
+                    dbFile.getAcceptedByLecturer(),
+                    dbFile.getDeletedByLecturer());
         }).collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
@@ -94,12 +101,46 @@ public class FileController {
         return ResponseEntity.ok().build();
     }
 
-//    Update Partially
-    @PutMapping("/files/{id}")
-    ResponseEntity<?> updateFileDetails( @RequestParam("accepted") Boolean accepted , @PathVariable String id) {
+    //updateAcceptedByStaff
+    @PutMapping("/files/acceptedByStaff/{id}")
+    ResponseEntity<?> updateAcceptedByStaff( @RequestParam("acceptedByStaff") Boolean acceptedByStaff , @PathVariable String id) {
         Optional<FileDB> existingFile = fileDBRepository.findById(id);
         existingFile.ifPresent((FileDB file) -> {
-            file.setAccepted(accepted);
+            file.setAcceptedByStaff(acceptedByStaff);
+            fileDBRepository.save(file);
+        });
+        return ResponseEntity.ok().build();
+    }
+
+
+    //updateDeletedByStaff
+    @PutMapping("/files/deletedByStaff/{id}")
+    ResponseEntity<?> updateDeletedByStaff ( @RequestParam("deletedByStaff") Boolean deletedByStaff , @PathVariable String id) {
+        Optional<FileDB> existingFile = fileDBRepository.findById(id);
+        existingFile.ifPresent((FileDB file) -> {
+            file.setDeletedByStaff(deletedByStaff);
+            fileDBRepository.save(file);
+        });
+        return ResponseEntity.ok().build();
+    }
+
+    //updateAcceptedByLecturer
+    @PutMapping("/files/acceptedByLecturer/{id}")
+    ResponseEntity<?> updateAcceptedByLecturer ( @RequestParam("acceptedByLecturer") Boolean acceptedByLecturer , @PathVariable String id) {
+        Optional<FileDB> existingFile = fileDBRepository.findById(id);
+        existingFile.ifPresent((FileDB file) -> {
+            file.setAcceptedByLecturer(acceptedByLecturer);
+            fileDBRepository.save(file);
+        });
+        return ResponseEntity.ok().build();
+    }
+
+    //updateDeletedByLecturer
+    @PutMapping("/files/deletedByLecturer/{id}")
+    ResponseEntity<?> updateDeletedByLecturer ( @RequestParam("deletedByLecturer") Boolean deletedByLecturer , @PathVariable String id) {
+        Optional<FileDB> existingFile = fileDBRepository.findById(id);
+        existingFile.ifPresent((FileDB file) -> {
+            file.setDeletedByLecturer(deletedByLecturer);
             fileDBRepository.save(file);
         });
         return ResponseEntity.ok().build();
