@@ -44,6 +44,8 @@ public class User {
 
 	private String departmentId;
 
+	private String resetPasswordToken;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
@@ -54,8 +56,10 @@ public class User {
 	public User() {
 	}
 
-	public User(String userid, String firstname, String lastname, String mobile, String address,
-				String username,String email,String password, String courseId, String departmentId) {
+	public User(String userid, String firstname, String lastname,
+				String mobile, String address,String username,
+				String email, String password, String courseId,
+				String departmentId, String resetPasswordToken) {
 		this.userid = userid;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -66,6 +70,7 @@ public class User {
 		this.password = password;
 		this.courseId = courseId;
 		this.departmentId = departmentId;
+		this.resetPasswordToken = resetPasswordToken;
 	}
 
 	public Long getId() {
@@ -127,6 +132,10 @@ public class User {
 	public String getDepartmentId() { return departmentId; }
 
 	public void setDepartmentId(String departmentId) { this.departmentId = departmentId; }
+
+	public String getResetPasswordToken() { return resetPasswordToken; }
+
+	public void setResetPasswordToken(String resetPasswordToken) { this.resetPasswordToken = resetPasswordToken; }
 
 	public Set<Role> getRoles() {
 		return roles;

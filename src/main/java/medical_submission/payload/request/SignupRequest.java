@@ -31,6 +31,8 @@ public class SignupRequest {
     private String courseId;
 
     private String departmentId;
+
+    private String resetPasswordToken;
     
     private Set<String> role;
     
@@ -86,6 +88,10 @@ public class SignupRequest {
     public String getDepartmentId() { return departmentId; }
 
     public void setDepartmentId(String departmentId) { this.departmentId = departmentId; }
+
+    public String getResetPasswordToken() { return resetPasswordToken; }
+
+    public void setResetPasswordToken(String resetPasswordToken) { this.resetPasswordToken = resetPasswordToken;}
 
     public Set<String> getRole() {
       return this.role;

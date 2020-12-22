@@ -38,6 +38,8 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String departmentId;
 
+	private String resetPasswordToken;
+
 	private Collection<? extends GrantedAuthority> authorities;
 
 //	public UserDetailsImpl(Long id, String username, String email, String password,
@@ -50,9 +52,10 @@ public class UserDetailsImpl implements UserDetails {
 //	}
 
 
-	public UserDetailsImpl(Long id, String userid, String firstname, String lastname,
-						   String mobile, String address, String username, String email,
-						   String password, String courseId, String departmentId,
+	public UserDetailsImpl(Long id, String userid, String firstname,
+						   String lastname, String mobile, String address,
+						   String username, String email, String password,
+						   String courseId, String departmentId, String resetPasswordToken,
 						   Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.userid = userid;
@@ -65,6 +68,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.password = password;
 		this.courseId = courseId;
 		this.departmentId = departmentId;
+		this.resetPasswordToken = resetPasswordToken;
 		this.authorities = authorities;
 	}
 
@@ -85,6 +89,7 @@ public class UserDetailsImpl implements UserDetails {
 				user.getPassword(),
 				user.getCourseId(),
 				user.getDepartmentId(),
+				user.getResetPasswordToken(),
 				authorities);
 	}
 
@@ -138,6 +143,8 @@ public class UserDetailsImpl implements UserDetails {
 	public String getDepartmentId() {
 		return departmentId;
 	}
+
+	public String getResetPasswordToken() { return resetPasswordToken; }
 
 	@Override
 	public boolean isAccountNonExpired() {
